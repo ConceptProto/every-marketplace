@@ -5,6 +5,35 @@ All notable changes to the compounding-engineering plugin will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2025-11-26
+
+### Added
+
+**Elixir & Phoenix Support**
+
+- **`elixir-reviewer` agent** - Strict Elixir code reviewer applying official language conventions, anti-patterns detection, naming conventions, and OTP best practices
+- **`elixir-style` skill** - Comprehensive Elixir coding standards from official documentation including:
+  - 4 anti-pattern reference files (code, design, process, macro)
+  - 3 meta-programming guides (quote/unquote, macros, DSLs)
+  - 3 convention references (naming, patterns/guards, typespecs)
+  - All content from official Elixir v1.19.3 guides with Apache 2.0 attribution
+- **`otp-patterns` skill** - OTP architecture patterns covering GenServer, Supervisor, Agent, Task, ETS, and Registry
+- **`chris-mccord-phoenix-style` skill** - Phoenix/LiveView code following Chris McCord's philosophy with cross-references to elixir-style and otp-patterns
+
+### Changed
+
+- **`/workflows:review` command** - Now includes `elixir-reviewer` for Elixir/Phoenix projects in parallel agent execution
+
+### Summary
+
+| Component | v2.4.1 | v2.5.0 | Change |
+|-----------|--------|--------|--------|
+| Agents | 24 | 25 | +1 |
+| Commands | 15 | 15 | - |
+| Skills | 11 | 14 | +3 |
+
+---
+
 ## [2.4.1] - 2024-11-24
 
 ### Improved

@@ -6,16 +6,16 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 24 |
+| Agents | 25 |
 | Commands | 15 |
-| Skills | 11 |
+| Skills | 14 |
 | MCP Servers | 2 |
 
 ## Agents
 
 Agents are organized into categories for easier discovery.
 
-### Review (10)
+### Review (11)
 
 | Agent | Description |
 |-------|-------------|
@@ -23,6 +23,7 @@ Agents are organized into categories for easier discovery.
 | `code-simplicity-reviewer` | Final pass for simplicity and minimalism |
 | `data-integrity-guardian` | Database migrations and data integrity |
 | `dhh-rails-reviewer` | Rails review from DHH's perspective |
+| `elixir-reviewer` | Elixir code review with strict conventions |
 | `kieran-rails-reviewer` | Rails code review with strict conventions |
 | `kieran-python-reviewer` | Python code review with strict conventions |
 | `kieran-typescript-reviewer` | TypeScript code review with strict conventions |
@@ -114,6 +115,14 @@ Access via `/workflows:command`:
 | `every-style-editor` | Review copy for Every's style guide compliance |
 | `file-todos` | File-based todo tracking system |
 | `git-worktree` | Manage Git worktrees for parallel development |
+
+### Elixir & Phoenix
+
+| Skill | Description |
+|-------|-------------|
+| `chris-mccord-phoenix-style` | Write Phoenix/LiveView code following Chris McCord's philosophy |
+| `elixir-style` | Comprehensive Elixir coding standards from official guides |
+| `otp-patterns` | GenServer, Supervisor, Agent, Task, and OTP architecture patterns |
 
 ### Image Generation
 
