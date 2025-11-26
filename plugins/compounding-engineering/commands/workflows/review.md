@@ -52,11 +52,17 @@ Ensure that the code is ready for analysis (either in worktree or on current bra
 
 <parallel_tasks>
 
-Run ALL or most of these agents at the same time:
+Run ALL or most of these agents at the same time based on the language/framework detected:
 
+**For Ruby/Rails projects:**
 1. Task kieran-rails-reviewer(PR content)
 2. Task dhh-rails-reviewer(PR title)
 3. If turbo is used: Task rails-turbo-expert(PR content)
+
+**For Elixir/Phoenix projects:**
+1. Task elixir-reviewer(PR content)
+
+**For all projects:**
 4. Task git-history-analyzer(PR content)
 5. Task dependency-detective(PR content)
 6. Task pattern-recognition-specialist(PR content)
