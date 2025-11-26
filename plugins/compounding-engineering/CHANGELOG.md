@@ -5,6 +5,44 @@ All notable changes to the compounding-engineering plugin will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2025-11-26
+
+### Added
+
+**Phoenix & Ecto Agents (6)**
+
+- **`phoenix-reviewer` agent** - Phoenix framework code reviewer for LiveView, channels, routing, and Phoenix conventions
+- **`chris-mccord-phoenix-reviewer` agent** - Phoenix code reviewer applying Chris McCord's philosophy and patterns
+- **`ecto-data-guardian` agent** - Ecto-specific data integrity reviewer for schemas, changesets, queries, and migrations
+- **`phoenix-best-practices-researcher` agent** - Research agent for Phoenix/LiveView best practices and patterns
+- **`hex-package-readme-writer` agent** - Create professional READMEs for Hex packages following Elixir ecosystem conventions
+- **`elixir-lint` agent** - Run Elixir linting workflow (mix format, credo, dialyzer)
+
+**Skills (2)**
+
+- **`hex-package-writer` skill** - Guide for writing production-quality Hex packages with proper documentation, testing, and publication workflow
+- **`instructor-elixir` skill** - Structured LLM outputs using Instructor library for Elixir with Ecto schema integration
+
+**Skill Enhancements**
+
+- **`chris-mccord-phoenix-style` skill** - Added comprehensive reference files:
+  - `contexts.md` - Phoenix context organisation patterns
+  - `ecto-patterns.md` - Ecto schema and query patterns
+  - `liveview-patterns.md` - LiveView component and state patterns
+  - `real-time.md` - PubSub and channel patterns
+  - `routing.md` - Router and pipeline patterns
+  - `testing-patterns.md` - ExUnit and Phoenix test patterns
+
+### Summary
+
+| Component | v2.6.0 | v2.7.0 | Change |
+|-----------|--------|--------|--------|
+| Agents | 25 | 31 | +6 |
+| Commands | 16 | 16 | - |
+| Skills | 14 | 16 | +2 |
+
+---
+
 ## [2.6.0] - 2025-11-26
 
 ### Added
