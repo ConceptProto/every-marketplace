@@ -6,38 +6,39 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 25 |
+| Agents | 27 |
 | Commands | 16 |
-| Skills | 14 |
+| Skills | 16 |
 | MCP Servers | 2 |
 
 ## Agents
 
-Agents are organized into categories for easier discovery.
+Agents are organised into categories for easier discovery.
 
 ### Review (11)
 
 | Agent | Description |
 |-------|-------------|
-| `architecture-strategist` | Analyze architectural decisions and compliance |
+| `architecture-strategist` | Analyse architectural decisions and compliance |
+| `chris-mccord-phoenix-reviewer` | Phoenix review from Chris McCord's perspective |
 | `code-simplicity-reviewer` | Final pass for simplicity and minimalism |
 | `data-integrity-guardian` | Database migrations and data integrity |
-| `dhh-rails-reviewer` | Rails review from DHH's perspective |
+| `ecto-data-guardian` | Ecto-specific data integrity and migration safety |
 | `elixir-reviewer` | Elixir code review with strict conventions |
-| `kieran-rails-reviewer` | Rails code review with strict conventions |
-| `kieran-python-reviewer` | Python code review with strict conventions |
-| `kieran-typescript-reviewer` | TypeScript code review with strict conventions |
-| `pattern-recognition-specialist` | Analyze code for patterns and anti-patterns |
-| `performance-oracle` | Performance analysis and optimization |
+| `kieran-code-reviewer` | Language-agnostic code review with strict conventions |
+| `pattern-recognition-specialist` | Analyse code for patterns and anti-patterns |
+| `performance-oracle` | Performance analysis and optimisation |
+| `phoenix-reviewer` | Phoenix framework code review |
 | `security-sentinel` | Security audits and vulnerability assessments |
 
-### Research (4)
+### Research (5)
 
 | Agent | Description |
 |-------|-------------|
 | `best-practices-researcher` | Gather external best practices and examples |
 | `framework-docs-researcher` | Research framework documentation and best practices |
-| `git-history-analyzer` | Analyze git history and code evolution |
+| `git-history-analyzer` | Analyse git history and code evolution |
+| `phoenix-best-practices-researcher` | Research Phoenix-specific best practices |
 | `repo-research-analyst` | Research repository structure and conventions |
 
 ### Design (3)
@@ -46,24 +47,25 @@ Agents are organized into categories for easier discovery.
 |-------|-------------|
 | `design-implementation-reviewer` | Verify UI implementations match Figma designs |
 | `design-iterator` | Iteratively refine UI through systematic design iterations |
-| `figma-design-sync` | Synchronize web implementations with Figma designs |
+| `figma-design-sync` | Synchronise web implementations with Figma designs |
 
 ### Workflow (6)
 
 | Agent | Description |
 |-------|-------------|
 | `bug-reproduction-validator` | Systematically reproduce and validate bug reports |
+| `elixir-lint` | Run linting and code quality checks on Elixir and Phoenix files |
 | `every-style-editor` | Edit content to conform to Every's style guide |
 | `feedback-codifier` | Codify feedback patterns into reviewer agents |
-| `lint` | Run linting and code quality checks on Ruby and ERB files |
 | `pr-comment-resolver` | Address PR comments and implement fixes |
-| `spec-flow-analyzer` | Analyze user flows and identify gaps in specifications |
+| `spec-flow-analyzer` | Analyse user flows and identify gaps in specifications |
 
-### Docs (1)
+### Docs (2)
 
 | Agent | Description |
 |-------|-------------|
-| `ankane-readme-writer` | Create READMEs following Ankane-style template for Ruby gems |
+| `concise-readme-writer` | Create concise READMEs for any library or package |
+| `hex-package-readme-writer` | Create READMEs following Hex package conventions |
 
 ## Commands
 
@@ -93,7 +95,7 @@ Access via `/workflows:command`:
 | `/resolve_parallel` | Resolve TODO comments in parallel |
 | `/resolve_pr_parallel` | Resolve PR comments in parallel |
 | `/resolve_todo_parallel` | Resolve todos in parallel |
-| `/triage` | Triage and prioritize issues |
+| `/triage` | Triage and prioritise issues |
 
 ## Skills
 
@@ -102,11 +104,12 @@ Access via `/workflows:command`:
 | Skill | Description |
 |-------|-------------|
 | `andrew-kane-gem-writer` | Write Ruby gems following Andrew Kane's patterns |
-| `codify-docs` | Capture solved problems as categorized documentation |
+| `codify-docs` | Capture solved problems as categorised documentation |
 | `create-agent-skills` | Expert guidance for creating Claude Code skills |
 | `dhh-ruby-style` | Write Ruby/Rails code in DHH's 37signals style |
 | `dspy-ruby` | Build type-safe LLM applications with DSPy.rb |
 | `frontend-design` | Create production-grade frontend interfaces |
+| `hex-package-writer` | Write Hex packages following Elixir best practices |
 | `skill-creator` | Guide for creating effective Claude Code skills |
 
 ### Content & Workflow
@@ -123,6 +126,7 @@ Access via `/workflows:command`:
 |-------|-------------|
 | `chris-mccord-phoenix-style` | Write Phoenix/LiveView code following Chris McCord's philosophy |
 | `elixir-style` | Comprehensive Elixir coding standards from official guides |
+| `instructor-elixir` | Structured LLM outputs using Ecto schemas with Instructor |
 | `otp-patterns` | GenServer, Supervisor, Agent, Task, and OTP architecture patterns |
 
 ### Image Generation
@@ -205,6 +209,6 @@ Or add them globally in `~/.claude/settings.json` for all projects.
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
 
-## License
+## Licence
 
 MIT

@@ -5,6 +5,38 @@ All notable changes to the compounding-engineering plugin will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2025-11-27
+
+### Changed
+
+**Streamlined for Elixir/Phoenix Focus**
+
+This release removes language-specific agents (Rails, Python, TypeScript) and generalises them for broader use, making the plugin better suited for Elixir/Phoenix development while remaining useful for any language.
+
+### Removed
+
+- **`dhh-rails-reviewer` agent** - Rails-specific reviewer (use `chris-mccord-phoenix-reviewer` for Phoenix)
+- **`kieran-rails-reviewer` agent** - Replaced by `kieran-code-reviewer`
+- **`kieran-python-reviewer` agent** - Replaced by `kieran-code-reviewer`
+- **`kieran-typescript-reviewer` agent** - Replaced by `kieran-code-reviewer`
+- **`ankane-readme-writer` agent** - Ruby gems specific, replaced by `concise-readme-writer`
+- **`lint` agent** - Ruby/ERB specific (use `elixir-lint` for Elixir projects)
+
+### Added
+
+- **`kieran-code-reviewer` agent** - Language-agnostic high-bar code reviewer with principles from all previous Kieran reviewers
+- **`concise-readme-writer` agent** - Language-agnostic README writer for any library or package ecosystem
+
+### Summary
+
+| Component | v2.7.0 | v2.8.0 | Change |
+|-----------|--------|--------|--------|
+| Agents | 31 | 27 | -4 |
+| Commands | 16 | 16 | - |
+| Skills | 16 | 16 | - |
+
+---
+
 ## [2.7.0] - 2025-11-26
 
 ### Added
