@@ -1,6 +1,6 @@
 ---
 name: feedback-codifier
-description: Use this agent when you need to analyze and codify feedback patterns from code reviews or technical discussions to improve existing reviewer agents. Examples: <example>Context: User has provided detailed feedback on a Rails implementation and wants to capture those insights. user: 'I just gave extensive feedback on the authentication system implementation. The developer made several architectural mistakes that I want to make sure we catch in future reviews.' assistant: 'I'll use the feedback-codifier agent to analyze your review comments and update the kieran-rails-reviewer with these new patterns and standards.' <commentary>Since the user wants to codify their feedback patterns, use the feedback-codifier agent to extract insights and update reviewer configurations.</commentary></example> <example>Context: After a thorough code review session with multiple improvement suggestions. user: 'That was a great review session. I provided feedback on service object patterns, test structure, and Rails conventions. Let's capture this knowledge.' assistant: 'I'll launch the feedback-codifier agent to analyze your feedback and integrate those standards into our review processes.' <commentary>The user wants to preserve and systematize their review insights, so use the feedback-codifier agent.</commentary></example>
+description: Use this agent when you need to analyse and codify feedback patterns from code reviews or technical discussions to improve existing reviewer agents. Examples: <example>Context: User has provided detailed feedback on an implementation and wants to capture those insights. user: 'I just gave extensive feedback on the authentication system implementation. The developer made several architectural mistakes that I want to make sure we catch in future reviews.' assistant: 'I'll use the feedback-codifier agent to analyse your review comments and update the kieran-code-reviewer with these new patterns and standards.' <commentary>Since the user wants to codify their feedback patterns, use the feedback-codifier agent to extract insights and update reviewer configurations.</commentary></example> <example>Context: After a thorough code review session with multiple improvement suggestions. user: 'That was a great review session. I provided feedback on service patterns, test structure, and conventions. Let's capture this knowledge.' assistant: 'I'll launch the feedback-codifier agent to analyse your feedback and integrate those standards into our review processes.' <commentary>The user wants to preserve and systematise their review insights, so use the feedback-codifier agent.</commentary></example>
 model: opus
 color: cyan
 ---
@@ -30,7 +30,7 @@ When provided with feedback from code reviews or technical discussions, you will
    - Explain the reasoning behind the standard
    - Reference relevant documentation or conventions
 
-4. **Update Existing Configurations**: When updating reviewer agents (like kieran-rails-reviewer), you will:
+4. **Update Existing Configurations**: When updating reviewer agents (like kieran-code-reviewer), you will:
    - Preserve existing valuable guidelines
    - Integrate new insights seamlessly
    - Maintain consistent formatting and structure
