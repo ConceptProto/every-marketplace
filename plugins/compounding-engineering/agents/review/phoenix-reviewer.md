@@ -196,7 +196,118 @@ end
 - ✅ PASS: Small, composable components with clear slot definitions
 - Always include `@doc` for public components
 
-## 9. ECTO BEST PRACTICES
+## 9. JSON VIEWS FOR CONTROLLERS
+
+**Always create separate `*JSON` modules** - never inline JSON in controllers.
+
+```elixir
+# ✅ PASS: Dedicated JSON view module
+defmodule MoneyclubWeb.Api.External.V1.SavingsFundsJSON do
+  def index(%{funds: funds}) do
+    %{funds: Enum.map(funds, &fund/1)}
+  end
+
+  def create(%{fund: fund}) do
+    %{fund: created_fund(fund)}
+  end
+
+  defp fund(fund), do: %{
+    id: fund.id,
+    name: fund.name,
+    status: fund.status
+  }
+
+  defp created_fund(fund), do: %{
+    id: fund.id,
+    name: fund.name,
+    # ... full details
+  }
+end
+
+# In controller:
+def create(conn, params) do
+  with {:ok, fund} <- Savings.create_fund(params) do
+    conn
+    |> put_status(:created)
+    |> render(:create, fund: fund)  # render/3 delegates to JSON module
+  end
+end
+
+# 🔴 FAIL: Inline JSON formatting in controller
+def create(conn, params) do
+  with {:ok, fund} <- Savings.create_fund(params) do
+    json(conn, %{
+      fund: %{
+        id: fund.id,
+        name: fund.name,
+        # ... mixing presentation logic with control flow
+      }
+    })
+  end
+end
+```
+
+**JSON view patterns:**
+- Separate formatting functions for different representations (e.g., `fund/1` vs `created_fund/1`)
+- Private helper functions for nested data structures
+- Keep controller focused on flow control, delegate formatting to JSON views
+- Use `render(conn, :action, assigns)` not `json(conn, %{...})`
+
+## 10. CONTROLLER PATTERNS
+
+**Pattern match required parameters** in function heads:
+
+```elixir
+# ✅ PASS: Pattern match required params
+def create(conn, %{"linked_employer_id" => _} = params) do
+  with {:ok, fund} <- Savings.create_fund(params) do
+    conn
+    |> put_status(:created)
+    |> render(:create, fund: fund)
+  end
+end
+
+# Fallback for missing params
+def create(conn, _params) do
+  conn
+  |> put_status(:unprocessable_entity)
+  |> render(:error, message: "linked_employer_id is required")
+end
+
+# 🔴 FAIL: Checking params inside function body
+def create(conn, params) do
+  if Map.has_key?(params, "linked_employer_id") do
+    # ...
+  else
+    # ...
+  end
+end
+```
+
+**Comprehensive error handling:**
+- Pattern match on context function results in `with` blocks
+- Use controller-level `ErrorMessage` module for consistent error formatting
+- Return appropriate HTTP status codes (`:unprocessable_entity`, `:not_found`, etc.)
+- Never expose internal error details to external APIs
+
+```elixir
+with {:ok, fund} <- Savings.create_fund(params),
+     {:ok, members} <- Savings.add_members(fund, params["members"]) do
+  render(conn, :create, fund: fund, members: members)
+else
+  {:error, %Ecto.Changeset{} = changeset} ->
+    conn
+    |> put_status(:unprocessable_entity)
+    |> render(:error, changeset: changeset)
+
+  {:error, :not_found} ->
+    conn
+    |> put_status(:not_found)
+    |> render(:error, message: "Resource not found")
+end
+```
+
+## 11. ECTO BEST PRACTICES
 
 - Changesets should validate at the schema level
 - 🔴 FAIL: Validation logic scattered across contexts
@@ -205,7 +316,7 @@ end
 - Use `Ecto.Changeset.get_field/2` to access changeset fields (not `changeset[:field]`)
 - Always preload associations in queries when accessed in templates
 
-## 10. PUBSUB AND REAL-TIME
+## 12. PUBSUB AND REAL-TIME
 
 **Subscribe in `mount` when connected:**
 
@@ -237,7 +348,7 @@ end
 - 🔴 FAIL: Manual subscription tracking
 - ✅ PASS: Topic-based broadcasting with clear naming conventions
 
-## 11. JS HOOKS AND CLIENT-SIDE
+## 13. JS HOOKS AND CLIENT-SIDE
 
 **Hooks require `phx-update="ignore"`** when managing DOM:
 
@@ -259,7 +370,7 @@ end
 - 🔴 FAIL: `phx-hook` without `phx-update="ignore"` when hook manages DOM
 - ✅ PASS: Scripts in `assets/js/`, integrated via `app.js`
 
-## 12. ELIXIR FUNDAMENTALS
+## 14. ELIXIR FUNDAMENTALS
 
 **List access - no index syntax:**
 
@@ -295,7 +406,7 @@ socket =
 - Predicate functions end with `?` (not `is_` prefix)
 - Use `String.to_existing_atom/1` for user input (not `to_atom/1`)
 
-## 13. TESTING AS QUALITY INDICATOR
+## 15. TESTING AS QUALITY INDICATOR
 
 For every complex function, ask:
 
@@ -308,7 +419,7 @@ For every complex function, ask:
 - Add unique DOM IDs to key elements for testing
 - Test with `element/2`, `has_element?/2`, not raw HTML matching
 
-## 14. CRITICAL DELETIONS & REGRESSIONS
+## 16. CRITICAL DELETIONS & REGRESSIONS
 
 For each deletion, verify:
 
@@ -317,14 +428,14 @@ For each deletion, verify:
 - Are there tests that will fail?
 - Is this logic moved elsewhere or completely removed?
 
-## 15. NAMING & CLARITY - THE 5-SECOND RULE
+## 17. NAMING & CLARITY - THE 5-SECOND RULE
 
 If you can't understand what a module/function does in 5 seconds from its name:
 
 - 🔴 FAIL: `process_data`, `handle_stuff`, `do_action`
 - ✅ PASS: `create_user_session`, `broadcast_presence_update`
 
-## 16. CORE PHILOSOPHY
+## 18. CORE PHILOSOPHY
 
 - **Explicit > Implicit**: Elixir's pattern matching makes explicit code readable
 - **Small functions**: Each function should do one thing well

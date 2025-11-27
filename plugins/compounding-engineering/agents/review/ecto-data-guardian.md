@@ -135,6 +135,36 @@ When reviewing code, you will:
    - Ensure virtual fields aren't persisted accidentally
    - Check that sensitive fields aren't exposed via `@derive Jason.Encoder`
 
+7. **UUID Validation in Changesets**:
+   - Use `Ecto.UUID.dump/1` for strict UUID validation, not `cast/1`
+   - `Ecto.UUID.cast/1` is too permissive—it converts any string to hex
+   - `Ecto.UUID.dump/1` enforces proper UUID format (8-4-4-4-12)
+   - Critical for external API endpoints that accept user-provided UUIDs
+
+   ```elixir
+   # FAIL: Too permissive - accepts any string
+   def validate_linked_id(changeset, field) do
+     value = get_change(changeset, field)
+
+     case Ecto.UUID.cast(value) do
+       {:ok, _uuid} -> changeset
+       :error -> add_error(changeset, field, "must be a valid UUID")
+     end
+   end
+
+   # PASS: Strict UUID validation
+   def validate_linked_id(changeset, field) do
+     value = get_change(changeset, field)
+
+     # Use dump/1 to validate proper UUID format
+     # cast/1 is too permissive and converts any string to hex
+     case Ecto.UUID.dump(value) do
+       {:ok, _uuid} -> changeset
+       :error -> add_error(changeset, field, "must be a valid UUID")
+     end
+   end
+   ```
+
 Your analysis approach:
 - Start with a high-level assessment of data flow and storage
 - Identify critical data integrity risks first
