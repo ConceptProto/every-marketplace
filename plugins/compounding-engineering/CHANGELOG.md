@@ -5,6 +5,53 @@ All notable changes to the compounding-engineering plugin will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.2] - 2025-11-28
+
+### Enhanced
+
+**phoenix-reviewer agent** - Added patterns from moneyclub PR 429 commit f786ac12:
+
+- **Controller Patterns (Section 10)** - New guidelines for:
+  - Unified error handling with `{:error, status, message}` tuples
+  - Pattern matching for authorisation with same-value binding
+  - Using non-bang context functions to avoid rescue blocks
+  - Inline rendering vs extracted handlers (prefer inline case for simple logic)
+
+- **Context Function Patterns (Section 11)** - New guidelines for:
+  - Unifying create/upsert functions with keyword list options
+  - Standardising return types (2-tuples over 3-tuples with action tracking)
+
+**elixir-reviewer agent** - Added patterns for:
+  - Same-value binding pattern for equality checks
+  - `maybe_*` function clauses for optional behaviour
+  - Boolean parameter checking with `in [true, "true"]`
+
+These patterns come from a real refactoring that removed 68 lines of duplicate code by unifying create and upsert operations with an options pattern.
+
+---
+
+## [2.8.1] - 2025-11-28
+
+### Enhanced
+
+**phoenix-reviewer agent** - Added two new comprehensive sections based on learnings from moneyclub PR 426:
+
+- **Section 11: Context Function Patterns** - Guidelines for:
+  - Providing both bang and non-bang versions of getter functions
+  - Using `do_*` prefix for private implementation functions
+  - Upsert pattern with `opts \\ []` and `upsert: true/false`
+  - Attribute normalisation for handling mixed atom/string keys
+
+- **Section 12: Bulk Operation Patterns** - Guidelines for:
+  - Two-phase validation (validate all, then create all)
+  - Module attributes for bulk operation limits (`@max_bulk_members`)
+  - Structured error format with summary and per-item errors
+  - All-or-nothing transaction patterns
+
+These patterns reflect real-world refactoring decisions from a savings fund member API implementation.
+
+---
+
 ## [2.8.0] - 2025-11-27
 
 ### Changed

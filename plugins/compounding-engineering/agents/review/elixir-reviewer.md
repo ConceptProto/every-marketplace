@@ -74,6 +74,62 @@ def process(%User{status: :pending} = user), do: send_reminder(user)
 def process(%User{}), do: {:error, :invalid_status}
 ```
 
+**Same-value binding pattern** for equality checks:
+
+```elixir
+# ✅ PASS: Elegant - employer_id binds same value in both positions
+defp authorize_employer_access(
+       %{linked_employer_id: employer_id},
+       employer_id
+     ) do
+  :ok
+end
+
+defp authorize_employer_access(_resource, _employer_id) do
+  {:error, :unauthorized}
+end
+
+# 🔴 FAIL: Explicit equality check with guard or if
+defp authorize_employer_access(%{linked_employer_id: linked_id}, employer_id)
+     when not is_nil(linked_id) do
+  if linked_id == employer_id, do: :ok, else: {:error, :unauthorized}
+end
+```
+
+**maybe_* function clauses** for optional behaviour:
+
+```elixir
+# ✅ PASS: Function clauses with guards for conditional execution
+defp maybe_send_webhook(webhook_url, resource_id, data)
+     when is_binary(webhook_url) do
+  Task.start(fn ->
+    WebhookNotifier.send(webhook_url, resource_id, data)
+  end)
+end
+
+defp maybe_send_webhook(_webhook_url, _resource_id, _data), do: :ok
+
+# 🔴 FAIL: if/else inside single function
+defp maybe_send_webhook(webhook_url, resource_id, data) do
+  if webhook_url do
+    Task.start(fn ->
+      WebhookNotifier.send(webhook_url, resource_id, data)
+    end)
+  end
+end
+```
+
+**Boolean parameter checking** - use `in` for multiple truthy values:
+
+```elixir
+# ✅ PASS: Handle both boolean and string "true" from API params
+upsert = params["upsert"] in [true, "true"]
+
+# 🔴 FAIL: Verbose or incomplete checks
+upsert = params["upsert"] == true or params["upsert"] == "true"
+upsert = params["upsert"] == true  # Misses string "true" from JSON
+```
+
 ## 4. ERROR HANDLING - LET IT CRASH
 
 - Use `{:ok, result}` / `{:error, reason}` tuples consistently
